@@ -25,7 +25,6 @@
                 <p class="text-sm text-slate-500" data-translate-key="header_subtitle">Real-Time Information Hub</p>
             </div>
             <div class="flex items-center space-x-4">
-                 <!-- LINK ATUALIZADO AQUI -->
                  <a href="index.html" class="hidden sm:block text-sky-600 hover:underline" data-translate-key="back_to_main">Back to Main Site</a>
                  <div>
                     <button id="lang-pt" onclick="setLanguage('pt')" class="lang-btn bg-slate-200 hover:bg-sky-600 hover:text-white font-bold py-1 px-3 rounded-l-lg text-sm transition-colors">PT</button>
@@ -123,14 +122,13 @@
         
         async function getCrewData() {
             const crewList = document.getElementById('crew-list');
-            const crewApiUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent('http://api.open-notify.org/astros.json')}`;
+            const crewApiUrl = `https://corsproxy.io/?${encodeURIComponent('http://api.open-notify.org/astros.json')}`;
             try {
                 const response = await fetch(crewApiUrl);
                 if (!response.ok) { throw new Error(`HTTP error! status: ${response.status}`); }
                 const data = await response.json();
                 crewList.innerHTML = '';
                 const issCrew = data.people.filter(person => person.craft === 'ISS');
-
                 if (issCrew.length > 0) {
                     issCrew.forEach(person => {
                         const li = document.createElement('li');
@@ -152,13 +150,15 @@
             navigator.geolocation.getCurrentPosition(fetchPasses, handleLocationError);
         }
 
+        // FUNÇÃO DE PASSAGENS CORRIGIDA E REFORÇADA
         async function fetchPasses(position) {
             const { latitude, longitude } = position.coords;
             const passesInfo = document.getElementById('passes-info');
-            const passesApiUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(`http://api.open-notify.org/iss-pass.json?lat=${latitude}&lon=${longitude}&n=5`)}`;
+            const apiUrl = `http://api.open-notify.org/iss-pass.json?lat=${latitude}&lon=${longitude}&n=5`;
+            const proxyUrl = `https://corsproxy.io/?${encodeURIComponent(apiUrl)}`;
             
             try {
-                const response = await fetch(passesApiUrl);
+                const response = await fetch(proxyUrl);
                 if (!response.ok) { throw new Error(`HTTP error! status: ${response.status}`); }
                 const data = await response.json();
                 passesInfo.innerHTML = '';
@@ -200,4 +200,5 @@
     </script>
 </body>
 </html>
+
 

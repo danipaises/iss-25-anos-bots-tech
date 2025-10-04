@@ -17,7 +17,7 @@
         .timeline-item { position: relative; padding-left: 2.5rem; padding-bottom: 2rem; border-left: 2px solid #E2E8F0; }
         .timeline-item:last-child { border-left: 2px solid transparent; padding-bottom: 0; }
         .timeline-point { position: absolute; left: -0.5625rem; top: 0.25rem; width: 1rem; height: 1rem; border-radius: 9999px; background-color: #38BDF8; border: 2px solid white; }
-        .lang-btn.active { background-color: #0ea5e9; /* sky-500 */ }
+        .lang-btn.active { background-color: #0ea5e9; }
     </style>
 </head>
 <body class="text-slate-800">
@@ -25,18 +25,23 @@
     <header class="header-bg text-white">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
             <div class="text-2xl font-bold" data-translate-key="nav_title">ISS: 25 YEARS</div>
-            <div class="hidden md:flex space-x-6 items-center">
+            <!-- Desktop Nav -->
+            <div class="hidden md:flex space-x-4 items-center">
+                <a href="#mission" class="hover:text-sky-300" data-translate-key="nav_mission">Our Mission</a>
                 <a href="#historia" class="hover:text-sky-300" data-translate-key="nav_history">History</a>
                 <a href="#ciencia" class="hover:text-sky-300" data-translate-key="nav_science">Science</a>
-                <a href="#futuro" class="hover:text-sky-300" data-translate-key="nav_future">Future</a>
+                <a href="iss-dados.html" class="bg-amber-500 hover:bg-amber-400 text-white font-bold py-2 px-4 rounded-lg transition-colors" data-translate-key="nav_dashboard">Data Dashboard</a>
                 <a href="portal-de-jogos-iss.html" class="bg-sky-500 hover:bg-sky-400 text-white font-bold py-2 px-4 rounded-lg transition-colors" data-translate-key="nav_games">Mini Games</a>
-                <div class="flex items-center">
+                <div>
                     <button id="lang-pt" onclick="setLanguage('pt')" class="lang-btn bg-gray-900 bg-opacity-50 hover:bg-sky-600 text-white font-bold py-1 px-3 rounded-l-lg text-sm transition-colors">PT</button>
                     <button id="lang-en" onclick="setLanguage('en')" class="lang-btn bg-gray-900 bg-opacity-50 hover:bg-sky-600 text-white font-bold py-1 px-3 rounded-r-lg text-sm transition-colors">EN</button>
                 </div>
             </div>
+            <!-- Mobile Nav -->
             <div class="md:hidden flex items-center space-x-2">
-                 <a href="portal-de-jogos-iss.html" class="bg-sky-500 hover:bg-sky-400 text-white font-bold py-2 px-3 rounded-lg transition-colors text-sm" data-translate-key="nav_games_mobile">Mini Games</a>
+                 <a href="iss-dados.html" class="bg-amber-500 hover:bg-amber-400 text-white font-bold py-1 px-2 rounded-lg transition-colors text-xs" data-translate-key="nav_dashboard_mobile">Dashboard</a>
+                 <a href="portal-de-jogos-iss.html" class="bg-sky-500 hover:bg-sky-400 text-white font-bold py-1 px-2 rounded-lg transition-colors text-xs" data-translate-key="nav_games_mobile">Games</a>
+                 <!-- LANGUAGE SWITCHER CORRIGIDO AQUI -->
                  <div>
                     <button id="lang-pt-mobile" onclick="setLanguage('pt')" class="lang-btn bg-gray-900 bg-opacity-50 hover:bg-sky-600 text-white font-bold py-1 px-2 rounded-l-lg text-xs transition-colors">PT</button>
                     <button id="lang-en-mobile" onclick="setLanguage('en')" class="lang-btn bg-gray-900 bg-opacity-50 hover:bg-sky-600 text-white font-bold py-1 px-2 rounded-r-lg text-xs transition-colors">EN</button>
@@ -53,10 +58,17 @@
     </header>
 
     <main class="container mx-auto px-6 py-12">
+        <section id="mission" class="my-16 scroll-mt-20">
+            <h2 class="text-3xl font-bold text-center mb-4" data-translate-key="mission_title">Our Mission: Inspiring the Next Generation</h2>
+            <p class="text-center max-w-4xl mx-auto text-slate-600" data-translate-key="mission_desc">
+                Space science often feels distant and complex. Our project tackles this challenge by making the ISS accessible and exciting for everyone. We transform abstract data into an interactive experience to educate the public about NASA's achievements, spark curiosity, and inspire future scientists, engineers, and explorers. This is our impact.
+            </p>
+        </section>
+
         <section id="historia" class="my-16 scroll-mt-20">
             <h2 class="text-3xl font-bold text-center mb-12" data-translate-key="history_title">A Journey of Collaboration</h2>
             <div class="max-w-4xl mx-auto">
-                <div class="timeline-item">
+                 <div class="timeline-item">
                     <div class="timeline-point"></div>
                     <p class="text-sm text-sky-500 font-semibold" data-translate-key="timeline1_date">November 20, 1998</p>
                     <h3 class="text-xl font-semibold mb-2" data-translate-key="timeline1_title">The Beginning: Zarya Module</h3>
@@ -86,7 +98,7 @@
         <section id="ciencia" class="my-16 bg-slate-100 -mx-6 px-6 py-16 scroll-mt-20">
             <div class="container mx-auto">
                 <h2 class="text-3xl font-bold text-center mb-12" data-translate-key="science_title">The Orbiting Laboratory</h2>
-                <div class="grid md:grid-cols-3 gap-8 text-center">
+                 <div class="grid md:grid-cols-3 gap-8 text-center">
                     <div>
                         <h3 class="text-xl font-semibold mb-2" data-translate-key="science1_title">Biology & Biotechnology</h3>
                         <p class="text-slate-600" data-translate-key="science1_desc">Studies on cell growth and the effects of microgravity on the human body, leading to advances in medicine on Earth.</p>
@@ -126,109 +138,39 @@
             <p class="text-sm text-slate-400" data-translate-key="footer_tribute">A tribute to human ingenuity and collaboration.</p>
         </div>
     </footer>
-
     <script>
-        // --- Translation Logic ---
-        let currentLanguage = localStorage.getItem('language') || 'en'; // DEFAULT LANGUAGE IS NOW ENGLISH
-
+        let currentLanguage = localStorage.getItem('language') || 'en';
         const translations = {
             pt: {
-                nav_title: "ISS: 25 ANOS",
-                nav_history: "História",
-                nav_science: "Ciência",
-                nav_future: "Futuro",
-                nav_games: "Mini Jogos",
-                nav_games_mobile: "Mini Jogos",
-                hero_title: "Celebrando um Quarto de Século no Espaço",
-                hero_desc: "A Estação Espacial Internacional (ISS) como um farol da colaboração humana, inovação científica e exploração contínua.",
-                history_title: "Uma Jornada de Colaboração",
-                timeline1_date: "20 de Novembro de 1998",
-                timeline1_title: "O Início: Módulo Zarya",
-                timeline1_desc: "O primeiro módulo, Zarya, é lançado da Rússia, marcando o início da construção da ISS. Este módulo forneceu a propulsão e energia iniciais.",
-                timeline2_date: "Dezembro de 1998",
-                timeline2_title: "Primeira Conexão: Módulo Unity",
-                timeline2_desc: "O módulo Unity (Node 1) dos EUA é lançado e acoplado ao Zarya, simbolizando a primeira grande colaboração internacional no projeto.",
-                timeline3_date: "2 de Novembro de 2000",
-                timeline3_title: "Chegada da Primeira Tripulação",
-                timeline3_desc: "A Expedição 1 chega à estação. A presença humana na ISS tem sido ininterrupta desde então.",
-                timeline4_title: "Expansão e Conclusão da Montagem",
-                timeline4_desc: "A montagem principal da estação é concluída. A tripulação é expandida para seis membros, permitindo um aumento significativo na pesquisa científica.",
-                science_title: "O Laboratório em Órbita",
-                science1_title: "Biologia e Biotecnologia",
-                science1_desc: "Estudos sobre crescimento celular e os efeitos da microgravidade no corpo humano, levando a avanços em medicina na Terra.",
-                science2_title: "Ciência dos Materiais",
-                science2_desc: "Pesquisas em microgravidade permitem a criação de novos materiais com propriedades únicas, impossíveis de replicar na Terra.",
-                science3_title: "Observação da Terra",
-                science3_desc: "A ISS é uma plataforma única para monitorar o clima da Terra, desastres naturais e mudanças ambientais, fornecendo dados cruciais.",
-                future_title: "Os Próximos 25 Anos e Além",
-                future1_title: "A Ponte para a Exploração do Espaço Profundo",
-                future1_desc: "A ISS serve como um campo de testes essencial para tecnologias necessárias para futuras missões à Lua, Marte e além.",
-                future2_title: "Novas Parcerias Comerciais",
-                future2_desc: "O futuro da órbita baixa da Terra inclui uma crescente colaboração com empresas privadas, abrindo novas oportunidades para pesquisa e turismo.",
-                footer_project: "© 2025 - Projeto para o NASA Space Apps Challenge.",
-                footer_team: "Feito pelo time Bots Tech.",
-                footer_tribute: "Um tributo à engenhosidade e colaboração humana."
+                nav_title: "ISS: 25 ANOS", nav_mission: "A Nossa Missão", nav_history: "História", nav_science: "Ciência", nav_dashboard: "Painel de Dados", nav_dashboard_mobile: "Painel", nav_games: "Mini Jogos", nav_games_mobile: "Jogos",
+                hero_title: "Celebrando um Quarto de Século no Espaço", hero_desc: "A Estação Espacial Internacional (ISS) como um farol da colaboração humana, inovação científica e exploração contínua.",
+                mission_title: "A Nossa Missão: Inspirar a Próxima Geração", mission_desc: "A ciência espacial parece, muitas vezes, distante e complexa. O nosso projeto enfrenta este desafio, tornando a ISS acessível e emocionante para todos. Transformamos dados abstratos numa experiência interativa para educar o público sobre as conquistas da NASA, despertar a curiosidade e inspirar futuros cientistas, engenheiros e exploradores. Este é o nosso impacto.",
+                history_title: "Uma Jornada de Colaboração", timeline1_date: "20 de Novembro de 1998", timeline1_title: "O Início: Módulo Zarya", timeline1_desc: "O primeiro módulo, Zarya, é lançado da Rússia, marcando o início da construção da ISS. Este módulo forneceu a propulsão e energia iniciais.", timeline2_date: "Dezembro de 1998", timeline2_title: "Primeira Conexão: Módulo Unity", timeline2_desc: "O módulo Unity (Node 1) dos EUA é lançado e acoplado ao Zarya, simbolizando a primeira grande colaboração internacional no projeto.", timeline3_date: "2 de Novembro de 2000", timeline3_title: "Chegada da Primeira Tripulação", timeline3_desc: "A Expedição 1 chega à estação. A presença humana na ISS tem sido ininterrupta desde então.", timeline4_title: "Expansão e Conclusão da Montagem", timeline4_desc: "A montagem principal da estação é concluída. A tripulação é expandida para seis membros, permitindo um aumento significativo na pesquisa científica.",
+                science_title: "O Laboratório em Órbita", science1_title: "Biologia e Biotecnologia", science1_desc: "Estudos sobre crescimento celular e os efeitos da microgravidade no corpo humano, levando a avanços em medicina na Terra.", science2_title: "Ciência dos Materiais", science2_desc: "Pesquisas em microgravidade permitem a criação de novos materiais com propriedades únicas, impossíveis de replicar na Terra.", science3_title: "Observação da Terra", science3_desc: "A ISS é uma plataforma única para monitorar o clima da Terra, desastres naturais e mudanças ambientais, fornecendo dados cruciais.",
+                future_title: "Os Próximos 25 Anos e Além", future1_title: "A Ponte para a Exploração do Espaço Profundo", future1_desc: "A ISS serve como um campo de testes essencial para tecnologias necessárias para futuras missões à Lua, Marte e além.", future2_title: "Novas Parcerias Comerciais", future2_desc: "O futuro da órbita baixa da Terra inclui uma crescente colaboração com empresas privadas, abrindo novas oportunidades para pesquisa e turismo.",
+                footer_project: "© 2025 - Projeto para o NASA Space Apps Challenge.", footer_team: "Feito pelo time Bots Tech.", footer_tribute: "Um tributo à engenhosidade e colaboração humana."
             },
             en: {
-                nav_title: "ISS: 25 YEARS",
-                nav_history: "History",
-                nav_science: "Science",
-                nav_future: "Future",
-                nav_games: "Mini Games",
-                nav_games_mobile: "Mini Games",
-                hero_title: "Celebrating a Quarter Century in Space",
-                hero_desc: "The International Space Station (ISS) as a beacon of human collaboration, scientific innovation, and continuous exploration.",
-                history_title: "A Journey of Collaboration",
-                timeline1_date: "November 20, 1998",
-                timeline1_title: "The Beginning: Zarya Module",
-                timeline1_desc: "The first module, Zarya, is launched from Russia, marking the start of the ISS construction. This module provided the initial propulsion and power.",
-                timeline2_date: "December 1998",
-                timeline2_title: "First Connection: Unity Module",
-                timeline2_desc: "The US Unity module (Node 1) is launched and attached to Zarya, symbolizing the first major international collaboration on the project.",
-                timeline3_date: "November 2, 2000",
-                timeline3_title: "Arrival of the First Crew",
-                timeline3_desc: "Expedition 1 arrives at the station. Human presence on the ISS has been uninterrupted ever since.",
-                timeline4_title: "Expansion and Assembly Completion",
-                timeline4_desc: "The main assembly of the station is completed. The crew is expanded to six members, allowing a significant increase in scientific research.",
-                science_title: "The Orbiting Laboratory",
-                science1_title: "Biology & Biotechnology",
-                science1_desc: "Studies on cell growth and the effects of microgravity on the human body, leading to advances in medicine on Earth.",
-                science2_title: "Materials Science",
-                science2_desc: "Research in microgravity allows for the creation of new materials with unique properties, impossible to replicate on Earth.",
-                science3_title: "Earth Observation",
-                science3_desc: "The ISS is a unique platform for monitoring Earth's climate, natural disasters, and environmental changes, providing crucial data.",
-                future_title: "The Next 25 Years and Beyond",
-                future1_title: "The Bridge to Deep Space Exploration",
-                future1_desc: "The ISS serves as an essential testbed for technologies needed for future missions to the Moon, Mars, and beyond.",
-                future2_title: "New Commercial Partnerships",
-                future2_desc: "The future of low Earth orbit includes growing collaboration with private companies, opening new opportunities for research and tourism.",
-                footer_project: "© 2025 - Project for the NASA Space Apps Challenge.",
-                footer_team: "Made by the Bots Tech team.",
-                footer_tribute: "A tribute to human ingenuity and collaboration."
+                nav_title: "ISS: 25 YEARS", nav_mission: "Our Mission", nav_history: "History", nav_science: "Science", nav_dashboard: "Data Dashboard", nav_dashboard_mobile: "Dashboard", nav_games: "Mini Games", nav_games_mobile: "Games",
+                hero_title: "Celebrating a Quarter Century in Space", hero_desc: "The International Space Station (ISS) as a beacon of human collaboration, scientific innovation, and continuous exploration.",
+                mission_title: "Our Mission: Inspiring the Next Generation", mission_desc: "Space science often feels distant and complex. Our project tackles this challenge by making the ISS accessible and exciting for everyone. We transform abstract data into an interactive experience to educate the public about NASA's achievements, spark curiosity, and inspire future scientists, engineers, and explorers. This is our impact.",
+                history_title: "A Journey of Collaboration", timeline1_date: "November 20, 1998", timeline1_title: "The Beginning: Zarya Module", timeline1_desc: "The first module, Zarya, is launched from Russia, marking the start of the ISS construction. This module provided the initial propulsion and power.", timeline2_date: "December 1998", timeline2_title: "First Connection: Unity Module", timeline2_desc: "The US Unity module (Node 1) is launched and attached to Zarya, symbolizing the first major international collaboration on the project.", timeline3_date: "November 2, 2000", timeline3_title: "Arrival of the First Crew", timeline3_desc: "Expedition 1 arrives at the station. Human presence on the ISS has been uninterrupted ever since.", timeline4_title: "Expansion and Assembly Completion", timeline4_desc: "The main assembly of the station is completed. The crew is expanded to six members, allowing a significant increase in scientific research.",
+                science_title: "The Orbiting Laboratory", science1_title: "Biology & Biotechnology", science1_desc: "Studies on cell growth and the effects of microgravity on the human body, leading to advances in medicine on Earth.", science2_title: "Materials Science", science2_desc: "Research in microgravity allows for the creation of new materials with unique properties, impossible to replicate on Earth.", science3_title: "Earth Observation", science3_desc: "The ISS is a unique platform for monitoring Earth's climate, natural disasters, and environmental changes, providing crucial data.",
+                future_title: "The Next 25 Years and Beyond", future1_title: "The Bridge to Deep Space Exploration", future1_desc: "The ISS serves as an essential testbed for technologies needed for future missions to the Moon, Mars, and beyond.", future2_title: "New Commercial Partnerships", future2_desc: "The future of low Earth orbit includes growing collaboration with private companies, opening new opportunities for research and tourism.",
+                footer_project: "© 2025 - Project for the NASA Space Apps Challenge.", footer_team: "Made by the Bots Tech team.", footer_tribute: "A tribute to human ingenuity and collaboration."
             }
         };
-
         function setLanguage(lang) {
-            if (lang !== 'pt' && lang !== 'en') return;
-            currentLanguage = lang;
-            localStorage.setItem('language', lang);
-            
+            currentLanguage = lang; localStorage.setItem('language', lang);
             document.documentElement.lang = currentLanguage === 'pt' ? 'pt-BR' : 'en-US';
-
-            document.querySelectorAll('[data-translate-key]').forEach(el => {
-                const key = el.getAttribute('data-translate-key');
-                el.innerText = translations[currentLanguage][key] || el.innerText;
-            });
-            
-            document.getElementById('lang-pt').classList.toggle('active', lang === 'pt');
-            document.getElementById('lang-en').classList.toggle('active', lang === 'en');
-            document.getElementById('lang-pt-mobile').classList.toggle('active', lang === 'pt');
-            document.getElementById('lang-en-mobile').classList.toggle('active', lang === 'en');
+            document.querySelectorAll('[data-translate-key]').forEach(el => { el.innerText = translations[currentLanguage][el.getAttribute('data-translate-key')] || el.innerText; });
+            document.getElementById('lang-pt').classList.toggle('active', currentLanguage === 'pt');
+            document.getElementById('lang-en').classList.toggle('active', currentLanguage === 'en');
+            // LÓGICA CORRIGIDA PARA ATUALIZAR OS BOTÕES MÓVEIS
+            document.getElementById('lang-pt-mobile').classList.toggle('active', currentLanguage === 'pt');
+            document.getElementById('lang-en-mobile').classList.toggle('active', currentLanguage === 'en');
         }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            setLanguage(currentLanguage);
-        });
+        document.addEventListener('DOMContentLoaded', () => { setLanguage(currentLanguage); });
     </script>
 </body>
 </html>

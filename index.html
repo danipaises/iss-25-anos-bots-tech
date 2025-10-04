@@ -1,173 +1,235 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en-US">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Site Profissional - 25 Anos da ISS</title>
+    <title>Professional Site - ISS 25th Anniversary</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #F8FAFC; /* slate-50 */
-        }
+        body { font-family: 'Inter', sans-serif; background-color: #F8FAFC; }
         .header-bg {
-            /* IMAGEM FORNECIDA PELO USUÁRIO */
             background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://i.postimg.cc/gJrvFcqZ/images-6.jpg') no-repeat center center;
             background-size: cover;
         }
-        /* Estilo para a linha do tempo */
-        .timeline-item {
-            position: relative;
-            padding-left: 2.5rem; /* Espaço para a linha e o ponto */
-            padding-bottom: 2rem;
-            border-left: 2px solid #E2E8F0; /* slate-200 */
-        }
-        .timeline-item:last-child {
-            border-left: 2px solid transparent;
-            padding-bottom: 0;
-        }
-        .timeline-point {
-            position: absolute;
-            left: -0.5625rem; /* Metade da largura para centralizar no traço */
-            top: 0.25rem;
-            width: 1rem;
-            height: 1rem;
-            border-radius: 9999px;
-            background-color: #38BDF8; /* sky-400 */
-            border: 2px solid white;
-        }
+        .timeline-item { position: relative; padding-left: 2.5rem; padding-bottom: 2rem; border-left: 2px solid #E2E8F0; }
+        .timeline-item:last-child { border-left: 2px solid transparent; padding-bottom: 0; }
+        .timeline-point { position: absolute; left: -0.5625rem; top: 0.25rem; width: 1rem; height: 1rem; border-radius: 9999px; background-color: #38BDF8; border: 2px solid white; }
+        .lang-btn.active { background-color: #0ea5e9; /* sky-500 */ }
     </style>
 </head>
 <body class="text-slate-800">
 
-    <!-- Header & Navigation -->
     <header class="header-bg text-white">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <div class="text-2xl font-bold">ISS: 25 ANOS</div>
+            <div class="text-2xl font-bold" data-translate-key="nav_title">ISS: 25 YEARS</div>
             <div class="hidden md:flex space-x-6 items-center">
-                <a href="#historia" class="hover:text-sky-300">História</a>
-                <a href="#ciencia" class="hover:text-sky-300">Ciência</a>
-                <a href="#futuro" class="hover:text-sky-300">Futuro</a>
-                <a href="portal-de-jogos-iss.html" class="bg-sky-500 hover:bg-sky-400 text-white font-bold py-2 px-4 rounded-lg transition-colors">
-                    Mini Jogos
-                </a>
+                <a href="#historia" class="hover:text-sky-300" data-translate-key="nav_history">History</a>
+                <a href="#ciencia" class="hover:text-sky-300" data-translate-key="nav_science">Science</a>
+                <a href="#futuro" class="hover:text-sky-300" data-translate-key="nav_future">Future</a>
+                <a href="portal-de-jogos-iss.html" class="bg-sky-500 hover:bg-sky-400 text-white font-bold py-2 px-4 rounded-lg transition-colors" data-translate-key="nav_games">Mini Games</a>
+                <div class="flex items-center">
+                    <button id="lang-pt" onclick="setLanguage('pt')" class="lang-btn bg-gray-900 bg-opacity-50 hover:bg-sky-600 text-white font-bold py-1 px-3 rounded-l-lg text-sm transition-colors">PT</button>
+                    <button id="lang-en" onclick="setLanguage('en')" class="lang-btn bg-gray-900 bg-opacity-50 hover:bg-sky-600 text-white font-bold py-1 px-3 rounded-r-lg text-sm transition-colors">EN</button>
+                </div>
             </div>
-            <div class="md:hidden">
-                 <a href="portal-de-jogos-iss.html" class="bg-sky-500 hover:bg-sky-400 text-white font-bold py-2 px-3 rounded-lg transition-colors text-sm">
-                    Mini Jogos
-                </a>
+            <div class="md:hidden flex items-center space-x-2">
+                 <a href="portal-de-jogos-iss.html" class="bg-sky-500 hover:bg-sky-400 text-white font-bold py-2 px-3 rounded-lg transition-colors text-sm" data-translate-key="nav_games_mobile">Mini Games</a>
+                 <div>
+                    <button id="lang-pt-mobile" onclick="setLanguage('pt')" class="lang-btn bg-gray-900 bg-opacity-50 hover:bg-sky-600 text-white font-bold py-1 px-2 rounded-l-lg text-xs transition-colors">PT</button>
+                    <button id="lang-en-mobile" onclick="setLanguage('en')" class="lang-btn bg-gray-900 bg-opacity-50 hover:bg-sky-600 text-white font-bold py-1 px-2 rounded-r-lg text-xs transition-colors">EN</button>
+                </div>
             </div>
         </nav>
         
-        <!-- Hero Section -->
         <div class="container mx-auto px-6 py-24 text-center">
-            <h1 class="text-4xl md:text-6xl font-bold mb-4">Celebrando um Quarto de Século no Espaço</h1>
-            <p class="text-xl max-w-3xl mx-auto">
-                A Estação Espacial Internacional (ISS) como um farol da colaboração humana, inovação científica e exploração contínua.
+            <h1 class="text-4xl md:text-6xl font-bold mb-4" data-translate-key="hero_title">Celebrating a Quarter Century in Space</h1>
+            <p class="text-xl max-w-3xl mx-auto" data-translate-key="hero_desc">
+                The International Space Station (ISS) as a beacon of human collaboration, scientific innovation, and continuous exploration.
             </p>
         </div>
     </header>
 
     <main class="container mx-auto px-6 py-12">
-
-        <!-- Section: História e Linha do Tempo -->
         <section id="historia" class="my-16 scroll-mt-20">
-            <h2 class="text-3xl font-bold text-center mb-12">Uma Jornada de Colaboração</h2>
+            <h2 class="text-3xl font-bold text-center mb-12" data-translate-key="history_title">A Journey of Collaboration</h2>
             <div class="max-w-4xl mx-auto">
-                <!-- Timeline Item 1 -->
                 <div class="timeline-item">
                     <div class="timeline-point"></div>
-                    <p class="text-sm text-sky-500 font-semibold">20 de Novembro de 1998</p>
-                    <h3 class="text-xl font-semibold mb-2">O Início: Módulo Zarya</h3>
-                    <p class="text-slate-600">O primeiro módulo, Zarya, é lançado da Rússia, marcando o início da construção da ISS. Este módulo forneceu a propulsão e energia iniciais.</p>
+                    <p class="text-sm text-sky-500 font-semibold" data-translate-key="timeline1_date">November 20, 1998</p>
+                    <h3 class="text-xl font-semibold mb-2" data-translate-key="timeline1_title">The Beginning: Zarya Module</h3>
+                    <p class="text-slate-600" data-translate-key="timeline1_desc">The first module, Zarya, is launched from Russia, marking the start of the ISS construction. This module provided the initial propulsion and power.</p>
                 </div>
-                <!-- Timeline Item 2 -->
                 <div class="timeline-item">
                     <div class="timeline-point"></div>
-                    <p class="text-sm text-sky-500 font-semibold">Dezembro de 1998</p>
-                    <h3 class="text-xl font-semibold mb-2">Primeira Conexão: Módulo Unity</h3>
-                    <p class="text-slate-600">O módulo Unity (Node 1) dos EUA é lançado e acoplado ao Zarya, simbolizando a primeira grande colaboração internacional no projeto.</p>
+                    <p class="text-sm text-sky-500 font-semibold" data-translate-key="timeline2_date">December 1998</p>
+                    <h3 class="text-xl font-semibold mb-2" data-translate-key="timeline2_title">First Connection: Unity Module</h3>
+                    <p class="text-slate-600" data-translate-key="timeline2_desc">The US Unity module (Node 1) is launched and attached to Zarya, symbolizing the first major international collaboration on the project.</p>
                 </div>
-                <!-- Timeline Item 3 -->
                 <div class="timeline-item">
                     <div class="timeline-point"></div>
-                    <p class="text-sm text-sky-500 font-semibold">2 de Novembro de 2000</p>
-                    <h3 class="text-xl font-semibold mb-2">Chegada da Primeira Tripulação</h3>
-                    <p class="text-slate-600">A Expedição 1 chega à estação, composta pelo astronauta americano William Shepherd e os cosmonautas russos Yuri Gidzenko e Sergei Krikalev. A presença humana na ISS tem sido ininterrupta desde então.</p>
+                    <p class="text-sm text-sky-500 font-semibold" data-translate-key="timeline3_date">November 2, 2000</p>
+                    <h3 class="text-xl font-semibold mb-2" data-translate-key="timeline3_title">Arrival of the First Crew</h3>
+                    <p class="text-slate-600" data-translate-key="timeline3_desc">Expedition 1 arrives at the station. Human presence on the ISS has been uninterrupted ever since.</p>
                 </div>
-                 <!-- Timeline Item 4 -->
                  <div class="timeline-item">
                     <div class="timeline-point"></div>
                     <p class="text-sm text-sky-500 font-semibold">2009</p>
-                    <h3 class="text-xl font-semibold mb-2">Expansão e Conclusão da Montagem</h3>
-                    <p class="text-slate-600">A montagem principal da estação é concluída. A tripulação é expandida de três para seis membros, permitindo um aumento significativo na quantidade de pesquisa científica realizada.</p>
+                    <h3 class="text-xl font-semibold mb-2" data-translate-key="timeline4_title">Expansion and Assembly Completion</h3>
+                    <p class="text-slate-600" data-translate-key="timeline4_desc">The main assembly of the station is completed. The crew is expanded to six members, allowing a significant increase in scientific research.</p>
                 </div>
             </div>
         </section>
 
-        <!-- Section: Ciência a Bordo -->
         <section id="ciencia" class="my-16 bg-slate-100 -mx-6 px-6 py-16 scroll-mt-20">
             <div class="container mx-auto">
-                <h2 class="text-3xl font-bold text-center mb-12">O Laboratório em Órbita</h2>
+                <h2 class="text-3xl font-bold text-center mb-12" data-translate-key="science_title">The Orbiting Laboratory</h2>
                 <div class="grid md:grid-cols-3 gap-8 text-center">
-                    <div class="p-6">
-                        <div class="text-sky-500 mb-4">
-                           <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547a2 2 0 00-.547 1.806l.477 2.387a6 6 0 00.517 3.86l.158.318a6 6 0 00.517 3.86l2.387.477a2 2 0 001.806-.547a2 2 0 00.547-1.806l-.477-2.387a6 6 0 00-.517-3.86l-.158-.318a6 6 0 00-.517-3.86l-2.387-.477zM12 12a4 4 0 100-8 4 4 0 000 8z" /></svg>
-                        </div>
-                        <h3 class="text-xl font-semibold mb-2">Biologia e Biotecnologia</h3>
-                        <p class="text-slate-600">Estudos sobre crescimento celular, desenvolvimento de plantas e os efeitos da microgravidade no corpo humano, levando a avanços em medicina na Terra.</p>
+                    <div>
+                        <h3 class="text-xl font-semibold mb-2" data-translate-key="science1_title">Biology & Biotechnology</h3>
+                        <p class="text-slate-600" data-translate-key="science1_desc">Studies on cell growth and the effects of microgravity on the human body, leading to advances in medicine on Earth.</p>
                     </div>
-                    <div class="p-6">
-                        <div class="text-sky-500 mb-4">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2h1a2 2 0 002-2v-1a2 2 0 012-2h1.945M7.737 10.512a4.5 4.5 0 016.526 0M6 16.5a2.5 2.5 0 015 0M18 16.5a2.5 2.5 0 00-5 0" /></svg>
-                        </div>
-                        <h3 class="text-xl font-semibold mb-2">Ciência dos Materiais</h3>
-                        <p class="text-slate-600">Pesquisas em um ambiente de microgravidade permitem a criação de novos materiais e ligas metálicas com propriedades únicas, impossíveis de replicar na Terra.</p>
+                    <div>
+                        <h3 class="text-xl font-semibold mb-2" data-translate-key="science2_title">Materials Science</h3>
+                        <p class="text-slate-600" data-translate-key="science2_desc">Research in microgravity allows for the creation of new materials with unique properties, impossible to replicate on Earth.</p>
                     </div>
-                    <div class="p-6">
-                        <div class="text-sky-500 mb-4">
-                           <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" /></svg>
-                        </div>
-                        <h3 class="text-xl font-semibold mb-2">Observação da Terra</h3>
-                        <p class="text-slate-600">A ISS é uma plataforma única para monitorar o clima da Terra, desastres naturais e mudanças ambientais, fornecendo dados cruciais para cientistas.</p>
+                    <div>
+                        <h3 class="text-xl font-semibold mb-2" data-translate-key="science3_title">Earth Observation</h3>
+                        <p class="text-slate-600" data-translate-key="science3_desc">The ISS is a unique platform for monitoring Earth's climate, natural disasters, and environmental changes, providing crucial data.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Section: O Futuro -->
         <section id="futuro" class="my-16 scroll-mt-20">
-            <h2 class="text-3xl font-bold text-center mb-12">Os Próximos 25 Anos e Além</h2>
+            <h2 class="text-3xl font-bold text-center mb-12" data-translate-key="future_title">The Next 25 Years and Beyond</h2>
             <div class="grid md:grid-cols-2 gap-8 items-center">
                 <div>
-                    <!-- IMAGEM FORNECIDA PELO USUÁRIO -->
-                    <img src="https://i.postimg.cc/hjh9W4bP/NASA-space-walk-Mc-Candless-S84-27562orig-1068x858.jpg" 
-                         alt="Astronauta Bruce McCandless II em caminhada espacial livre" 
-                         class="rounded-lg shadow-lg"
-                         onerror="this.onerror=null;this.src='https://placehold.co/600x400/38BDF8/FFFFFF?text=Erro+ao+carregar+imagem';">
+                    <img src="https://i.postimg.cc/hjh9W4bP/NASA-space-walk-Mc-Candless-S84-27562orig-1068x858.jpg" alt="Astronaut Bruce McCandless II in a free-flying spacewalk" class="rounded-lg shadow-lg">
                 </div>
                 <div>
-                    <h3 class="text-2xl font-semibold mb-4">A Ponte para a Exploração do Espaço Profundo</h3>
-                    <p class="text-slate-600 mb-4">A ISS serve como um campo de testes essencial para as tecnologias e procedimentos necessários para futuras missões tripuladas à Lua, Marte e além. As lições aprendidas em órbita baixa são a base para os próximos saltos gigantes da humanidade.</p>
-                    <h3 class="text-2xl font-semibold mb-4">Novas Parcerias Comerciais</h3>
-                    <p class="text-slate-600">O futuro da órbita baixa da Terra inclui uma crescente colaboração com empresas privadas, abrindo novas oportunidades para pesquisa, turismo e comercialização, garantindo uma presença humana contínua no espaço.</p>
+                    <h3 class="text-2xl font-semibold mb-4" data-translate-key="future1_title">The Bridge to Deep Space Exploration</h3>
+                    <p class="text-slate-600 mb-4" data-translate-key="future1_desc">The ISS serves as an essential testbed for technologies needed for future missions to the Moon, Mars, and beyond.</p>
+                    <h3 class="text-2xl font-semibold mb-4" data-translate-key="future2_title">New Commercial Partnerships</h3>
+                    <p class="text-slate-600" data-translate-key="future2_desc">The future of low Earth orbit includes growing collaboration with private companies, opening new opportunities for research and tourism.</p>
                 </div>
             </div>
         </section>
     </main>
 
-    <!-- Footer -->
     <footer class="bg-slate-800 text-white">
         <div class="container mx-auto px-6 py-8 text-center">
-            <p>&copy; 2025 - Projeto para o NASA Space Apps Challenge.</p>
-            <p class="font-semibold text-sky-300 my-1">Feito pelo time Bots Tech.</p>
-            <p class="text-sm text-slate-400">Um tributo à engenhosidade e colaboração humana.</p>
+            <p data-translate-key="footer_project">© 2025 - Project for the NASA Space Apps Challenge.</p>
+            <p class="font-semibold text-sky-300 my-1" data-translate-key="footer_team">Made by the Bots Tech team.</p>
+            <p class="text-sm text-slate-400" data-translate-key="footer_tribute">A tribute to human ingenuity and collaboration.</p>
         </div>
     </footer>
 
+    <script>
+        // --- Translation Logic ---
+        let currentLanguage = localStorage.getItem('language') || 'en'; // DEFAULT LANGUAGE IS NOW ENGLISH
+
+        const translations = {
+            pt: {
+                nav_title: "ISS: 25 ANOS",
+                nav_history: "História",
+                nav_science: "Ciência",
+                nav_future: "Futuro",
+                nav_games: "Mini Jogos",
+                nav_games_mobile: "Mini Jogos",
+                hero_title: "Celebrando um Quarto de Século no Espaço",
+                hero_desc: "A Estação Espacial Internacional (ISS) como um farol da colaboração humana, inovação científica e exploração contínua.",
+                history_title: "Uma Jornada de Colaboração",
+                timeline1_date: "20 de Novembro de 1998",
+                timeline1_title: "O Início: Módulo Zarya",
+                timeline1_desc: "O primeiro módulo, Zarya, é lançado da Rússia, marcando o início da construção da ISS. Este módulo forneceu a propulsão e energia iniciais.",
+                timeline2_date: "Dezembro de 1998",
+                timeline2_title: "Primeira Conexão: Módulo Unity",
+                timeline2_desc: "O módulo Unity (Node 1) dos EUA é lançado e acoplado ao Zarya, simbolizando a primeira grande colaboração internacional no projeto.",
+                timeline3_date: "2 de Novembro de 2000",
+                timeline3_title: "Chegada da Primeira Tripulação",
+                timeline3_desc: "A Expedição 1 chega à estação. A presença humana na ISS tem sido ininterrupta desde então.",
+                timeline4_title: "Expansão e Conclusão da Montagem",
+                timeline4_desc: "A montagem principal da estação é concluída. A tripulação é expandida para seis membros, permitindo um aumento significativo na pesquisa científica.",
+                science_title: "O Laboratório em Órbita",
+                science1_title: "Biologia e Biotecnologia",
+                science1_desc: "Estudos sobre crescimento celular e os efeitos da microgravidade no corpo humano, levando a avanços em medicina na Terra.",
+                science2_title: "Ciência dos Materiais",
+                science2_desc: "Pesquisas em microgravidade permitem a criação de novos materiais com propriedades únicas, impossíveis de replicar na Terra.",
+                science3_title: "Observação da Terra",
+                science3_desc: "A ISS é uma plataforma única para monitorar o clima da Terra, desastres naturais e mudanças ambientais, fornecendo dados cruciais.",
+                future_title: "Os Próximos 25 Anos e Além",
+                future1_title: "A Ponte para a Exploração do Espaço Profundo",
+                future1_desc: "A ISS serve como um campo de testes essencial para tecnologias necessárias para futuras missões à Lua, Marte e além.",
+                future2_title: "Novas Parcerias Comerciais",
+                future2_desc: "O futuro da órbita baixa da Terra inclui uma crescente colaboração com empresas privadas, abrindo novas oportunidades para pesquisa e turismo.",
+                footer_project: "© 2025 - Projeto para o NASA Space Apps Challenge.",
+                footer_team: "Feito pelo time Bots Tech.",
+                footer_tribute: "Um tributo à engenhosidade e colaboração humana."
+            },
+            en: {
+                nav_title: "ISS: 25 YEARS",
+                nav_history: "History",
+                nav_science: "Science",
+                nav_future: "Future",
+                nav_games: "Mini Games",
+                nav_games_mobile: "Mini Games",
+                hero_title: "Celebrating a Quarter Century in Space",
+                hero_desc: "The International Space Station (ISS) as a beacon of human collaboration, scientific innovation, and continuous exploration.",
+                history_title: "A Journey of Collaboration",
+                timeline1_date: "November 20, 1998",
+                timeline1_title: "The Beginning: Zarya Module",
+                timeline1_desc: "The first module, Zarya, is launched from Russia, marking the start of the ISS construction. This module provided the initial propulsion and power.",
+                timeline2_date: "December 1998",
+                timeline2_title: "First Connection: Unity Module",
+                timeline2_desc: "The US Unity module (Node 1) is launched and attached to Zarya, symbolizing the first major international collaboration on the project.",
+                timeline3_date: "November 2, 2000",
+                timeline3_title: "Arrival of the First Crew",
+                timeline3_desc: "Expedition 1 arrives at the station. Human presence on the ISS has been uninterrupted ever since.",
+                timeline4_title: "Expansion and Assembly Completion",
+                timeline4_desc: "The main assembly of the station is completed. The crew is expanded to six members, allowing a significant increase in scientific research.",
+                science_title: "The Orbiting Laboratory",
+                science1_title: "Biology & Biotechnology",
+                science1_desc: "Studies on cell growth and the effects of microgravity on the human body, leading to advances in medicine on Earth.",
+                science2_title: "Materials Science",
+                science2_desc: "Research in microgravity allows for the creation of new materials with unique properties, impossible to replicate on Earth.",
+                science3_title: "Earth Observation",
+                science3_desc: "The ISS is a unique platform for monitoring Earth's climate, natural disasters, and environmental changes, providing crucial data.",
+                future_title: "The Next 25 Years and Beyond",
+                future1_title: "The Bridge to Deep Space Exploration",
+                future1_desc: "The ISS serves as an essential testbed for technologies needed for future missions to the Moon, Mars, and beyond.",
+                future2_title: "New Commercial Partnerships",
+                future2_desc: "The future of low Earth orbit includes growing collaboration with private companies, opening new opportunities for research and tourism.",
+                footer_project: "© 2025 - Project for the NASA Space Apps Challenge.",
+                footer_team: "Made by the Bots Tech team.",
+                footer_tribute: "A tribute to human ingenuity and collaboration."
+            }
+        };
+
+        function setLanguage(lang) {
+            if (lang !== 'pt' && lang !== 'en') return;
+            currentLanguage = lang;
+            localStorage.setItem('language', lang);
+            
+            document.documentElement.lang = currentLanguage === 'pt' ? 'pt-BR' : 'en-US';
+
+            document.querySelectorAll('[data-translate-key]').forEach(el => {
+                const key = el.getAttribute('data-translate-key');
+                el.innerText = translations[currentLanguage][key] || el.innerText;
+            });
+            
+            document.getElementById('lang-pt').classList.toggle('active', lang === 'pt');
+            document.getElementById('lang-en').classList.toggle('active', lang === 'en');
+            document.getElementById('lang-pt-mobile').classList.toggle('active', lang === 'pt');
+            document.getElementById('lang-en-mobile').classList.toggle('active', lang === 'en');
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            setLanguage(currentLanguage);
+        });
+    </script>
 </body>
 </html>
 

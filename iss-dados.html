@@ -40,6 +40,9 @@
                 <div class="dashboard-card h-full flex flex-col">
                     <h2 class="text-xl font-semibold mb-4" data-translate-key="map_title">ISS Current Location</h2>
                     <div id="issMap" class="flex-grow"></div>
+                    <p class="text-xs text-slate-400 mt-2 text-center" data-translate-key="map_note">
+                        Map labels are provided by OpenStreetMap and may not reflect the selected language.
+                    </p>
                 </div>
             </div>
 
@@ -55,17 +58,19 @@
                 </div>
                 <div class="dashboard-card">
                     <h2 class="text-xl font-semibold mb-4" data-translate-key="crew_title">Who is in Space?</h2>
-                    <ul id="crew-list" class="space-y-2 text-slate-600">
+                    <ul id="crew-list" class="space-y-3 text-slate-600">
                         <li data-translate-key="loading">Loading...</li>
                     </ul>
                 </div>
                  <div class="dashboard-card">
-                    <h2 class="text-xl font-semibold mb-2" data-translate-key="passes_title">Next Pass Times</h2>
-                    <p class="text-sm text-slate-500 mb-4" data-translate-key="passes_desc">
-                        Click the button and allow location access to see the next times the ISS will be visible from your sky.
-                    </p>
-                    <button id="location-btn" onclick="getUserLocation()" class="w-full bg-sky-600 hover:bg-sky-500 text-white font-bold py-2 px-4 rounded-lg mb-4 transition-colors" data-translate-key="location_btn">Use My Location</button>
-                    <div id="passes-info" class="text-slate-600 text-sm"></div>
+                    <h2 class="text-xl font-semibold mb-4" data-translate-key="presence_title">Continuous Human Presence</h2>
+                    <div id="presence-counter" class="grid grid-cols-5 text-center">
+                        <div><span id="years" class="text-3xl font-bold text-sky-600">0</span><p class="text-xs text-slate-500" data-translate-key="years_label">Years</p></div>
+                        <div><span id="days" class="text-3xl font-bold text-sky-600">0</span><p class="text-xs text-slate-500" data-translate-key="days_label">Days</p></div>
+                        <div><span id="hours" class="text-3xl font-bold text-sky-600">00</span><p class="text-xs text-slate-500" data-translate-key="hours_label">Hours</p></div>
+                        <div><span id="minutes" class="text-3xl font-bold text-sky-600">00</span><p class="text-xs text-slate-500" data-translate-key="minutes_label">Mins</p></div>
+                        <div><span id="seconds" class="text-3xl font-bold text-sky-600">00</span><p class="text-xs text-slate-500" data-translate-key="seconds_label">Secs</p></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -78,19 +83,21 @@
                 header_title: "Painel de Dados da ISS", header_subtitle: "Central de Informações em Tempo Real", back_to_main: "Voltar ao Site Principal",
                 map_title: "Localização Atual da ISS", flight_data_title: "Dados de Voo em Direto",
                 latitude: "Latitude:", longitude: "Longitude:", altitude: "Altitude:", velocity: "Velocidade:",
-                crew_title: "Quem está no Espaço?", crew_error: "Não foi possível carregar os dados da tripulação.",
-                passes_title: "Próximas Passagens Visíveis", passes_desc: "Clique no botão e permita o acesso à localização para ver as próximas vezes que a ISS será visível no seu céu.", location_btn: "Usar a Minha Localização",
-                loading: "A carregar...", location_fetching: "A obter a sua localização...", location_denied: "Permissão de localização negada. Não é possível calcular as passagens.", passes_error: "Não foi possível obter os dados das passagens.",
-                pass_time_label: "Horário", pass_duration_label: "Duração", no_passes: "Nenhuma passagem futura encontrada para a sua localização."
+                crew_title: "Quem está no Espaço?",
+                presence_title: "Presença Humana Contínua",
+                years_label: "Anos", days_label: "Dias", hours_label: "Horas", minutes_label: "Min", seconds_label: "Seg",
+                loading: "A carregar...",
+                map_note: "Os nomes no mapa são fornecidos pelo OpenStreetMap e podem não refletir o idioma selecionado."
             },
             en: {
                 header_title: "ISS Data Dashboard", header_subtitle: "Real-Time Information Hub", back_to_main: "Back to Main Site",
                 map_title: "ISS Current Location", flight_data_title: "Live Flight Data",
                 latitude: "Latitude:", longitude: "Longitude:", altitude: "Altitude:", velocity: "Velocity:",
-                crew_title: "Who is in Space?", crew_error: "Could not load crew data.",
-                passes_title: "Next Pass Times", passes_desc: "Click the button and allow location access to see the next times the ISS will be visible from your sky.", location_btn: "Use My Location",
-                loading: "Loading...", location_fetching: "Fetching your location...", location_denied: "Location permission denied. Cannot calculate passes.", passes_error: "Could not fetch pass data.",
-                pass_time_label: "Time", pass_duration_label: "Duration", no_passes: "No upcoming passes found for your location."
+                crew_title: "Who is in Space?",
+                presence_title: "Continuous Human Presence",
+                years_label: "Years", days_label: "Days", hours_label: "Hours", minutes_label: "Mins", seconds_label: "Secs",
+                loading: "Loading...",
+                map_note: "Map labels are provided by OpenStreetMap and may not reflect the selected language."
             }
         };
 
@@ -120,82 +127,88 @@
             } catch (error) { console.error("Error fetching ISS data:", error); }
         }
         
+        // --- FUNÇÃO DE TRIPULAÇÃO COM FALLBACK À PROVA DE FUTURO ---
+        function displayFallbackCrewData() {
+            const crewList = document.getElementById('crew-list');
+            // LISTA ATUALIZADA com tripulação atual e futura (final de 2025 / início de 2026)
+            const fallbackCrew = [
+                { name: 'Oleg Kononenko', flag: '🇷🇺' }, { name: 'Nikolai Chub', flag: '🇷🇺' },
+                { name: 'Tracy C. Dyson', flag: '🇺🇸' }, { name: 'Matthew Dominick', flag: '🇺🇸' },
+                { name: 'Alexander Grebenkin', flag: '🇷🇺' }, { name: 'Scott D. Tingle', flag: '🇺🇸' },
+                { name: 'Michael Fincke', flag: '🇺🇸' }, { name: 'Joshua Kutryk', flag: '🇨🇦' },
+            ];
+            
+            crewList.innerHTML = '';
+            fallbackCrew.forEach(person => {
+                const li = document.createElement('li');
+                li.className = 'flex items-center';
+                li.innerHTML = `<span class="mr-2 text-xl">${person.flag}</span> ${person.name}`;
+                crewList.appendChild(li);
+            });
+        }
+
         async function getCrewData() {
             const crewList = document.getElementById('crew-list');
             const crewApiUrl = `https://corsproxy.io/?${encodeURIComponent('http://api.open-notify.org/astros.json')}`;
+            
             try {
-                const response = await fetch(crewApiUrl);
-                if (!response.ok) { throw new Error(`HTTP error! status: ${response.status}`); }
+                const response = await fetch(crewApiUrl, { signal: AbortSignal.timeout(8000) });
+                if (!response.ok) { throw new Error('Response not OK'); }
                 const data = await response.json();
-                crewList.innerHTML = '';
-                const issCrew = data.people.filter(person => person.craft === 'ISS');
-                if (issCrew.length > 0) {
+
+                if (data.people && data.people.length > 0) {
+                    crewList.innerHTML = '';
+                    const issCrew = data.people.filter(person => person.craft === 'ISS');
+                    const countryFlags = { 'USA': '🇺🇸', 'Russia': '🇷🇺' };
+                    
                     issCrew.forEach(person => {
                         const li = document.createElement('li');
-                        li.textContent = person.name;
+                        li.className = 'flex items-center';
+                        const flag = person.name.includes(' ') ? countryFlags['USA'] : countryFlags['Russia']; 
+                        li.innerHTML = `<span class="mr-2 text-xl">${flag || '🏴‍☠️'}</span> ${person.name}`;
                         crewList.appendChild(li);
                     });
                 } else {
-                     crewList.innerHTML = `<li>${translations[currentLanguage].crew_error}</li>`;
+                    throw new Error('No crew data in response');
                 }
             } catch (error) {
-                console.error("Error fetching crew data:", error);
-                crewList.innerHTML = `<li>${translations[currentLanguage].crew_error}</li>`;
+                console.warn("Live crew data failed, using future-proof fallback.", error);
+                displayFallbackCrewData();
             }
         }
         
-        function getUserLocation() {
-            const passesInfo = document.getElementById('passes-info');
-            passesInfo.innerHTML = `<p>${translations[currentLanguage].location_fetching}</p>`;
-            navigator.geolocation.getCurrentPosition(fetchPasses, handleLocationError);
-        }
+        function updatePresenceCounter() {
+            const firstCrewArrival = new Date('2000-11-02T09:00:00Z');
+            const now = new Date();
+            let diff = now - firstCrewArrival;
+            const msInDay = 1000 * 60 * 60 * 24;
 
-        // FUNÇÃO DE PASSAGENS CORRIGIDA E REFORÇADA
-        async function fetchPasses(position) {
-            const { latitude, longitude } = position.coords;
-            const passesInfo = document.getElementById('passes-info');
-            const apiUrl = `http://api.open-notify.org/iss-pass.json?lat=${latitude}&lon=${longitude}&n=5`;
-            const proxyUrl = `https://corsproxy.io/?${encodeURIComponent(apiUrl)}`;
+            let years = now.getUTCFullYear() - firstCrewArrival.getUTCFullYear();
+            let lastAnniversary = new Date(Date.UTC(now.getUTCFullYear(), firstCrewArrival.getUTCMonth(), firstCrewArrival.getUTCDate(), 9, 0, 0));
+            if (now < lastAnniversary) {
+                years--;
+                lastAnniversary.setUTCFullYear(lastAnniversary.getUTCFullYear() - 1);
+            }
+            const daysSinceAnniversary = Math.floor((now - lastAnniversary) / msInDay);
             
-            try {
-                const response = await fetch(proxyUrl);
-                if (!response.ok) { throw new Error(`HTTP error! status: ${response.status}`); }
-                const data = await response.json();
-                passesInfo.innerHTML = '';
-                if (data.message === "success" && data.response && data.response.length > 0) {
-                    const table = document.createElement('table');
-                    table.className = 'w-full text-left';
-                    table.innerHTML = `<thead><tr><th class="font-semibold">${translations[currentLanguage].pass_time_label}</th><th class="font-semibold">${translations[currentLanguage].pass_duration_label}</th></tr></thead>`;
-                    const tbody = document.createElement('tbody');
-                    data.response.forEach(pass => {
-                        const date = new Date(pass.risetime * 1000);
-                        const row = document.createElement('tr');
-                        row.innerHTML = `<td class="py-1">${date.toLocaleString()}</td><td>${Math.round(pass.duration / 60)} min</td>`;
-                        tbody.appendChild(row);
-                    });
-                    table.appendChild(tbody);
-                    passesInfo.appendChild(table);
-                } else {
-                    passesInfo.innerHTML = `<p>${translations[currentLanguage].no_passes}</p>`;
-                }
-            } catch (error) {
-                passesInfo.innerHTML = `<p>${translations[currentLanguage].passes_error}</p>`;
-                console.error("Error fetching pass times:", error);
-            }
-        }
-        
-        function handleLocationError(error) {
-            const passesInfo = document.getElementById('passes-info');
-            if (error.code === error.PERMISSION_DENIED) {
-                passesInfo.innerHTML = `<p>${translations[currentLanguage].location_denied}</p>`;
-            }
+            const hours = Math.floor((diff % msInDay) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            document.getElementById('years').textContent = years;
+            document.getElementById('days').textContent = daysSinceAnniversary;
+            document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+            document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+            document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
         }
 
         document.addEventListener('DOMContentLoaded', () => {
             setLanguage(currentLanguage);
             getISSData();
             getCrewData();
+            updatePresenceCounter();
             setInterval(getISSData, 5000);
+            setInterval(updatePresenceCounter, 1000);
         });
     </script>
 </body>

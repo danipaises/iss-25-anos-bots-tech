@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en-US">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal de Jogos - 25 Anos da ISS</title>
+    <title>Game Portal - ISS 25th Anniversary</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -23,139 +23,202 @@
             background-image: linear-gradient(to bottom, #000428, #004e92, #000428),
                               url('https://www.transparenttextures.com/patterns/stardust.png');
         }
-        /* --- ESTILOS AJUSTADOS PARA O JOGO DA MEMÓRIA --- */
         .memory-grid {
             display: grid;
-            /* ALTERAÇÃO: Layout de 2 colunas para combinar com a imagem */
             grid-template-columns: repeat(2, 1fr);
             gap: clamp(10px, 3vw, 15px);
             perspective: 1000px;
         }
         .memory-card {
-            background-color: transparent;
-            width: 100%;
-            aspect-ratio: 1 / 1;
-            border-radius: 8px;
-            cursor: pointer;
-            position: relative;
-            transform-style: preserve-3d;
-            transition: transform 0.6s;
-            -webkit-tap-highlight-color: transparent;
-            user-select: none;
+            background-color: transparent; width: 100%; aspect-ratio: 1 / 1; border-radius: 8px; cursor: pointer;
+            position: relative; transform-style: preserve-3d; transition: transform 0.6s;
+            -webkit-tap-highlight-color: transparent; user-select: none;
         }
-        .memory-card.is-flipped {
-            transform: rotateY(180deg);
-        }
+        .memory-card.is-flipped { transform: rotateY(180deg); }
         .memory-card .card-face {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            backface-visibility: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 8px;
-            font-size: clamp(2rem, 10vw, 3rem);
+            position: absolute; width: 100%; height: 100%; backface-visibility: hidden; display: flex;
+            align-items: center; justify-content: center; border-radius: 8px; font-size: clamp(2rem, 10vw, 3rem);
         }
-        /* --- FIM DOS AJUSTES --- */
-        .card-front {
-            background: linear-gradient(135deg, #00c6ff, #0072ff);
-            color: white;
-        }
-        .card-back {
-            background-color: #374151; /* gray-700 */
-            transform: rotateY(180deg);
-        }
-        .quiz-option {
-            transition: background-color 0.2s ease-in-out;
-        }
+        .card-front { background: linear-gradient(135deg, #00c6ff, #0072ff); color: white; }
+        .card-back { background-color: #374151; transform: rotateY(180deg); }
+        .quiz-option { transition: background-color 0.2s ease-in-out; }
+        .lang-btn.active { background-color: #0ea5e9; /* sky-500 */ }
     </style>
 </head>
 <body class="bg-space text-white">
 
+    <!-- Language Switcher -->
+    <div class="absolute top-4 right-4 z-10">
+        <button id="lang-pt" onclick="setLanguage('pt')" class="lang-btn bg-gray-700 hover:bg-sky-600 text-white font-bold py-1 px-3 rounded-l-lg text-sm transition-colors">PT</button>
+        <button id="lang-en" onclick="setLanguage('en')" class="lang-btn bg-gray-700 hover:bg-sky-600 text-white font-bold py-1 px-3 rounded-r-lg text-sm transition-colors">EN</button>
+    </div>
+
     <!-- Header -->
-    <header class="container mx-auto px-6 py-4 text-center">
-        <h1 class="orbitron text-4xl md:text-5xl font-bold uppercase text-glow">ISS 25 Anos</h1>
-        <p class="text-lg text-cyan-300">Portal de Jogos Comemorativo</p>
+    <header class="container mx-auto px-6 pt-16 pb-4 text-center">
+        <h1 class="orbitron text-4xl md:text-5xl font-bold uppercase text-glow" data-translate-key="title_main">ISS 25 Years</h1>
+        <p class="text-lg text-cyan-300" data-translate-key="subtitle_main">Commemorative Game Portal</p>
     </header>
 
     <main class="container mx-auto px-6 py-8">
-        
-        <!-- Hero Section -->
         <section class="text-center my-12">
-            <h2 class="orbitron text-3xl font-semibold mb-4 text-glow">Celebre 25 Anos da Estação Espacial Internacional!</h2>
-            <p class="max-w-2xl mx-auto mb-8 text-gray-300">
-                Explore o espaço, teste suas habilidades e divirta-se com nossos minijogos criados para homenagear este marco incrível da exploração humana.
+            <h2 class="orbitron text-3xl font-semibold mb-4 text-glow" data-translate-key="hero_title">Celebrate 25 Years of the International Space Station!</h2>
+            <p class="max-w-2xl mx-auto mb-8 text-gray-300" data-translate-key="hero_desc">
+                Explore space, test your skills, and have fun with our mini-games created to honor this incredible milestone of human exploration.
             </p>
         </section>
 
-        <!-- Games Section -->
         <section id="games">
-            <h3 class="orbitron text-2xl font-bold text-center mb-8 border-b-2 border-cyan-400 pb-2 inline-block mx-auto w-full">Nossos Jogos</h3>
-            
+            <h3 class="orbitron text-2xl font-bold text-center mb-8 border-b-2 border-cyan-400 pb-2 inline-block mx-auto w-full" data-translate-key="games_title">Our Games</h3>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Game 1: Asteroid Dodger -->
                 <div class="bg-gray-800 bg-opacity-50 rounded-lg shadow-lg overflow-hidden border border-cyan-700 transform hover:scale-105 transition-transform duration-300">
                     <div class="p-6">
-                        <h4 class="orbitron text-xl font-bold mb-2">Desvio de Asteroides</h4>
-                        <p class="text-gray-400 mb-4 text-sm">Pilote sua nave e sobreviva à chuva de asteroides. Quanto tempo você consegue durar?</p>
-                        <button onclick="showGame('asteroid-dodger')" class="w-full bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-2 px-4 rounded-lg orbitron transition-colors">
-                            Jogar Agora
+                        <h4 class="orbitron text-xl font-bold mb-2" data-translate-key="game1_title">Asteroid Dodger</h4>
+                        <p class="text-gray-400 mb-4 text-sm" data-translate-key="game1_desc">Pilot your ship and survive the asteroid shower. How long can you last?</p>
+                        <button onclick="showGame('asteroid-dodger')" class="w-full bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-2 px-4 rounded-lg orbitron transition-colors" data-translate-key="play_now">
+                            Play Now
                         </button>
                     </div>
                 </div>
-
-                <!-- Game 2: Space Quiz -->
                 <div class="bg-gray-800 bg-opacity-50 rounded-lg shadow-lg overflow-hidden border border-cyan-700 transform hover:scale-105 transition-transform duration-300">
                      <div class="p-6">
-                        <h4 class="orbitron text-xl font-bold mb-2">Quiz Espacial</h4>
-                        <p class="text-gray-400 mb-4 text-sm">Teste seus conhecimentos sobre a ISS e a exploração espacial.</p>
-                        <button onclick="showGame('space-quiz')" class="w-full bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-2 px-4 rounded-lg orbitron transition-colors">
-                            Jogar Agora
+                        <h4 class="orbitron text-xl font-bold mb-2" data-translate-key="game2_title">Space Quiz</h4>
+                        <p class="text-gray-400 mb-4 text-sm" data-translate-key="game2_desc">Test your knowledge about the ISS and space exploration.</p>
+                        <button onclick="showGame('space-quiz')" class="w-full bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-2 px-4 rounded-lg orbitron transition-colors" data-translate-key="play_now">
+                            Play Now
                         </button>
                     </div>
                 </div>
-                
-                <!-- Game 3: Galaxy Memory -->
                 <div class="bg-gray-800 bg-opacity-50 rounded-lg shadow-lg overflow-hidden border border-cyan-700 transform hover:scale-105 transition-transform duration-300">
                     <div class="p-6">
-                        <h4 class="orbitron text-xl font-bold mb-2">Memória Galáctica</h4>
-                        <p class="text-gray-400 mb-4 text-sm">Encontre os pares de cartas com tema espacial. Teste sua memória!</p>
-                        <button onclick="showGame('galaxy-memory')" class="w-full bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-2 px-4 rounded-lg orbitron transition-colors">
-                            Jogar Agora
+                        <h4 class="orbitron text-xl font-bold mb-2" data-translate-key="game3_title">Galaxy Memory</h4>
+                        <p class="text-gray-400 mb-4 text-sm" data-translate-key="game3_desc">Find the matching pairs of space-themed cards. Test your memory!</p>
+                        <button onclick="showGame('galaxy-memory')" class="w-full bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-2 px-4 rounded-lg orbitron transition-colors" data-translate-key="play_now">
+                            Play Now
                         </button>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Game Modal -->
         <div id="game-modal" class="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center hidden z-50 p-2 sm:p-4">
             <div class="bg-gray-900 rounded-lg p-4 shadow-2xl w-full h-full max-w-7xl max-h-[95vh] border-2 border-cyan-500 flex flex-col">
                 <div class="flex justify-between items-center mb-4 flex-shrink-0">
                     <h3 id="game-title" class="orbitron text-2xl font-bold text-glow"></h3>
                     <button onclick="hideGame()" class="text-white text-3xl font-bold leading-none">&times;</button>
                 </div>
-                <div id="game-container" class="relative w-full h-full bg-black rounded-md flex items-center justify-center p-2 flex-grow">
-                     <!-- O conteúdo do jogo será inserido aqui -->
-                </div>
-                <div id="game-instructions" class="mt-4 text-center text-gray-400 flex-shrink-0">
-                    <!-- As instruções do jogo aparecerão aqui -->
-                </div>
+                <div id="game-container" class="relative w-full h-full bg-black rounded-md flex items-center justify-center p-2 flex-grow"></div>
+                <div id="game-instructions" class="mt-4 text-center text-gray-400 flex-shrink-0"></div>
             </div>
         </div>
-
     </main>
 
-    <!-- Footer -->
     <footer class="text-center py-6 mt-12 border-t border-cyan-800">
-        <p>&copy; 2025 - Projeto para o NASA Space Apps Challenge.</p>
-        <p class="font-semibold text-sky-300 my-1">Feito pelo time Bots Tech.</p>
-        <p class="text-xs text-gray-400">Criado com IA para celebrar os 25 anos da ISS.</p>
+        <p data-translate-key="footer_project">© 2025 - Project for the NASA Space Apps Challenge.</p>
+        <p class="font-semibold text-sky-300 my-1" data-translate-key="footer_team">Made by the Bots Tech team.</p>
+        <p class="text-xs text-gray-400" data-translate-key="footer_ai">Created with AI to celebrate 25 years of the ISS.</p>
     </footer>
 
     <script>
-        // --- Game Modal Logic ---
+        // --- Translation Logic ---
+        let currentLanguage = localStorage.getItem('language') || 'en'; // DEFAULT LANGUAGE IS NOW ENGLISH
+        
+        const translations = {
+            pt: {
+                title_main: "ISS 25 Anos",
+                subtitle_main: "Portal de Jogos Comemorativo",
+                hero_title: "Celebre 25 Anos da Estação Espacial Internacional!",
+                hero_desc: "Explore o espaço, teste suas habilidades e divirta-se com nossos minijogos criados para homenagear este marco incrível da exploração humana.",
+                games_title: "Nossos Jogos",
+                game1_title: "Desvio de Asteroides",
+                game1_desc: "Pilote sua nave e sobreviva à chuva de asteroides. Quanto tempo você consegue durar?",
+                game2_title: "Quiz Espacial",
+                game2_desc: "Teste seus conhecimentos sobre a ISS e a exploração espacial.",
+                game3_title: "Memória Galáctica",
+                game3_desc: "Encontre os pares de cartas com tema espacial. Teste sua memória!",
+                play_now: "Jogar Agora",
+                footer_project: "© 2025 - Projeto para o NASA Space Apps Challenge.",
+                footer_team: "Feito pelo time Bots Tech.",
+                footer_ai: "Criado com IA para celebrar os 25 anos da ISS.",
+                modal_instructions: {
+                    'asteroid-dodger': 'Use as setas do teclado (ou toque e arraste na tela) para mover a nave.',
+                    'space-quiz': 'Clique na resposta que você acha correta.',
+                    'galaxy-memory': 'Clique nas cartas para encontrar os pares.'
+                },
+                quiz_questions: [
+                    { question: "Em que ano o primeiro módulo da ISS foi lançado?", options: ["1998", "2000", "2005", "1995"], correct: 0 },
+                    { question: "Qual país lançou o módulo 'Zarya', o primeiro da ISS?", options: ["EUA", "Japão", "Rússia", "Canadá"], correct: 2 },
+                    { question: "A ISS orbita a Terra a uma altitude aproximada de:", options: ["100 km", "400 km", "1000 km", "Na Lua"], correct: 1 },
+                    { question: "Quantas agências espaciais principais colaboram na ISS?", options: ["2", "3", "5", "10"], correct: 2 },
+                    { question: "A ISS completa uma órbita ao redor da Terra em aproximadamente:", options: ["90 minutos", "24 horas", "45 minutos", "6 horas"], correct: 0 }
+                ],
+                game_over: 'FIM DE JOGO',
+                final_score: 'Pontuação Final:',
+                play_again: 'Feche a janela para jogar novamente.',
+                points: 'Pontos',
+                quiz_finished: 'Quiz Finalizado!',
+                quiz_final_score: 'Sua pontuação final foi:',
+                congrats: 'Parabéns!',
+                all_pairs_found: 'Você encontrou todos os pares!'
+            },
+            en: {
+                title_main: "ISS 25 Years",
+                subtitle_main: "Commemorative Game Portal",
+                hero_title: "Celebrate 25 Years of the International Space Station!",
+                hero_desc: "Explore space, test your skills, and have fun with our mini-games created to honor this incredible milestone of human exploration.",
+                games_title: "Our Games",
+                game1_title: "Asteroid Dodger",
+                game1_desc: "Pilot your ship and survive the asteroid shower. How long can you last?",
+                game2_title: "Space Quiz",
+                game2_desc: "Test your knowledge about the ISS and space exploration.",
+                game3_title: "Galaxy Memory",
+                game3_desc: "Find the matching pairs of space-themed cards. Test your memory!",
+                play_now: "Play Now",
+                footer_project: "© 2025 - Project for the NASA Space Apps Challenge.",
+                footer_team: "Made by the Bots Tech team.",
+                footer_ai: "Created with AI to celebrate 25 years of the ISS.",
+                modal_instructions: {
+                    'asteroid-dodger': 'Use the arrow keys (or touch and drag on screen) to move the ship.',
+                    'space-quiz': 'Click on the answer you think is correct.',
+                    'galaxy-memory': 'Click on the cards to find the matching pairs.'
+                },
+                quiz_questions: [
+                    { question: "In what year was the first ISS module launched?", options: ["1998", "2000", "2005", "1995"], correct: 0 },
+                    { question: "Which country launched the 'Zarya' module, the first of the ISS?", options: ["USA", "Japan", "Russia", "Canada"], correct: 2 },
+                    { question: "The ISS orbits the Earth at an approximate altitude of:", options: ["100 km", "400 km", "1000 km", "On the Moon"], correct: 1 },
+                    { question: "How many main space agencies collaborate on the ISS?", options: ["2", "3", "5", "10"], correct: 2 },
+                    { question: "The ISS completes one orbit around the Earth in approximately:", options: ["90 minutes", "24 hours", "45 minutes", "6 hours"], correct: 0 }
+                ],
+                game_over: 'GAME OVER',
+                final_score: 'Final Score:',
+                play_again: 'Close the window to play again.',
+                points: 'Points',
+                quiz_finished: 'Quiz Finished!',
+                quiz_final_score: 'Your final score was:',
+                congrats: 'Congratulations!',
+                all_pairs_found: 'You found all the pairs!'
+            }
+        };
+
+        function setLanguage(lang) {
+            if (lang !== 'pt' && lang !== 'en') return;
+            currentLanguage = lang;
+            localStorage.setItem('language', lang);
+            
+            document.documentElement.lang = currentLanguage === 'pt' ? 'pt-BR' : 'en-US';
+
+            document.querySelectorAll('[data-translate-key]').forEach(el => {
+                const key = el.getAttribute('data-translate-key');
+                el.innerText = translations[currentLanguage][key] || el.innerText;
+            });
+
+            document.getElementById('lang-pt').classList.toggle('active', lang === 'pt');
+            document.getElementById('lang-en').classList.toggle('active', lang === 'en');
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            setLanguage(currentLanguage);
+        });
+
         const gameModal = document.getElementById('game-modal');
         const gameContainer = document.getElementById('game-container');
         const gameTitle = document.getElementById('game-title');
@@ -163,19 +226,20 @@
         let gameInstance = null;
 
         function showGame(gameId) {
-            gameContainer.innerHTML = ''; gameModal.classList.remove('hidden');
-            gameContainer.style.aspectRatio = 'auto'; gameContainer.style.height = '100%';
+            gameContainer.innerHTML = '';
+            gameModal.classList.remove('hidden');
+            gameContainer.style.aspectRatio = 'auto';
+            gameContainer.style.height = '100%';
 
-            if (gameId === 'asteroid-dodger') {
-                gameTitle.innerText = 'Desvio de Asteroides'; gameInstructions.innerText = 'Use as setas do teclado (ou toque e arraste na tela) para mover a nave.';
-                gameInstance = new AsteroidDodger(gameContainer);
-            } else if (gameId === 'space-quiz') {
-                gameTitle.innerText = 'Quiz Espacial'; gameInstructions.innerText = 'Clique na resposta que você acha correta.';
-                gameInstance = new SpaceQuiz(gameContainer);
-            } else if (gameId === 'galaxy-memory') {
-                gameTitle.innerText = 'Memória Galáctica'; gameInstructions.innerText = 'Clique nas cartas para encontrar os pares.';
-                gameInstance = new GalaxyMemory(gameContainer);
-            }
+            const gameKey = gameId.replace('-', '') + '_title';
+            const translatedTitle = translations[currentLanguage][gameKey] || '';
+            gameTitle.innerText = translatedTitle;
+            gameInstructions.innerText = translations[currentLanguage].modal_instructions[gameId] || '';
+
+            if (gameId === 'asteroid-dodger') { gameInstance = new AsteroidDodger(gameContainer); } 
+            else if (gameId === 'space-quiz') { gameInstance = new SpaceQuiz(gameContainer); }
+            else if (gameId === 'galaxy-memory') { gameInstance = new GalaxyMemory(gameContainer); }
+            
             if (gameInstance) { gameInstance.start(); }
         }
 
@@ -185,7 +249,6 @@
             gameContainer.innerHTML = '';
         }
 
-        // --- GAME 1: Asteroid Dodger ---
         class AsteroidDodger {
             constructor(container) {
                 this.container = container; this.canvas = document.createElement('canvas'); this.ctx = this.canvas.getContext('2d'); this.container.appendChild(this.canvas);
@@ -202,20 +265,22 @@
             createAsteroid() { if (Math.random() < 0.025) { const size = Math.random() * 25 + 15; const x = Math.random() * (this.canvas.width - size); this.asteroids.push({ x, y: -size, size, dy: Math.random() * 2 + 1, sprite: '☄️' }); } }
             updateShip() { if (this.keys.ArrowLeft && this.ship.x > 0) this.ship.x -= this.ship.dx; if (this.keys.ArrowRight && this.ship.x < this.canvas.width - this.ship.width) this.ship.x += this.ship.dx; }
             updateAsteroids() { this.asteroids.forEach((asteroid, index) => { asteroid.y += asteroid.dy; if (this.ship.x < asteroid.x + asteroid.size && this.ship.x + this.ship.width > asteroid.x && this.ship.y < asteroid.y + asteroid.size && this.ship.y + this.ship.height > asteroid.y) { this.gameOver = true; } if (asteroid.y > this.canvas.height) { this.asteroids.splice(index, 1); this.score++; } }); }
-            draw() { this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height); this.ctx.font = '40px sans-serif'; this.ctx.fillText(this.ship.sprite, this.ship.x, this.ship.y + this.ship.height - 10); this.asteroids.forEach(asteroid => { this.ctx.font = `${asteroid.size}px sans-serif`; this.ctx.fillText(asteroid.sprite, asteroid.x, asteroid.y); }); this.ctx.fillStyle = 'white'; this.ctx.font = '20px Orbitron'; this.ctx.fillText(`Pontos: ${this.score}`, 10, 30); }
-            drawGameOver() { this.ctx.fillStyle = 'rgba(0, 0, 0, 0.7)'; this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height); this.ctx.fillStyle = 'red'; this.ctx.font = '40px Orbitron'; this.ctx.textAlign = 'center'; this.ctx.fillText('FIM DE JOGO', this.canvas.width / 2, this.canvas.height / 2 - 20); this.ctx.fillStyle = 'white'; this.ctx.font = '20px Orbitron'; this.ctx.fillText(`Pontuação Final: ${this.score}`, this.canvas.width / 2, this.canvas.height / 2 + 20); this.ctx.font = '16px Roboto'; this.ctx.fillText('Feche a janela para jogar novamente.', this.canvas.width / 2, this.canvas.height / 2 + 60); this.ctx.textAlign = 'start'; }
-            loop() { if (this.gameOver) { this.drawGameOver(); return; } this.updateShip(); this.createAsteroid(); this.updateAsteroids(); this.draw(); this.animationFrameId = requestAnimationFrame(this.loop); }
+            draw() { this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height); this.ctx.font = '40px sans-serif'; this.ctx.fillText(this.ship.sprite, this.ship.x, this.ship.y + this.ship.height - 10); this.asteroids.forEach(asteroid => { this.ctx.font = `${asteroid.size}px sans-serif`; this.ctx.fillText(asteroid.sprite, asteroid.x, asteroid.y); }); this.ctx.fillStyle = 'white'; this.ctx.font = '20px Orbitron'; this.ctx.fillText(`${translations[currentLanguage].points}: ${this.score}`, 10, 30); }
+            drawGameOver() {
+                this.ctx.fillStyle = 'rgba(0, 0, 0, 0.7)'; this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height); this.ctx.fillStyle = 'red'; this.ctx.font = '40px Orbitron'; this.ctx.textAlign = 'center'; this.ctx.fillText(translations[currentLanguage].game_over, this.canvas.width / 2, this.canvas.height / 2 - 20);
+                this.ctx.fillStyle = 'white'; this.ctx.font = '20px Orbitron'; this.ctx.fillText(`${translations[currentLanguage].final_score} ${this.score}`, this.canvas.width / 2, this.canvas.height / 2 + 20);
+                this.ctx.font = '16px Roboto'; this.ctx.fillText(translations[currentLanguage].play_again, this.canvas.width / 2, this.canvas.height / 2 + 60); this.ctx.textAlign = 'start';
+            }
+            loop() { if (this.gameOver) { this.drawGameOver(); return; } this.updateShip(); this.createAsteroid(); this.updateAsteroids(); this.draw(); this.animationFrameId = requestAnimationFrame(this.loop.bind(this)); }
             start() { this.loop(); }
             stop() { cancelAnimationFrame(this.animationFrameId); window.removeEventListener('resize', this.setCanvasSize); document.removeEventListener('keydown', this.handleKeyDown); document.removeEventListener('keyup', this.handleKeyUp); }
         }
         
-        // --- GAME 2: Space Quiz ---
         class SpaceQuiz {
             constructor(container) {
                 this.container = container; this.score = 0; this.currentQuestionIndex = 0;
-                this.questions = [ { question: "Em que ano o primeiro módulo da ISS foi lançado?", options: ["1998", "2000", "2005", "1995"], correct: 0 }, { question: "Qual país lançou o módulo 'Zarya', o primeiro da ISS?", options: ["EUA", "Japão", "Rússia", "Canadá"], correct: 2 }, { question: "A ISS orbita a Terra a uma altitude aproximada de:", options: ["100 km", "400 km", "1000 km", "Na Lua"], correct: 1 }, { question: "Quantas agências espaciais principais colaboram na ISS?", options: ["2", "3", "5", "10"], correct: 2 }, { question: "A ISS completa uma órbita ao redor da Terra em aproximadamente:", options: ["90 minutos", "24 horas", "45 minutos", "6 horas"], correct: 0 } ];
             }
-            start() { this.displayQuestion(); }
+            start() { this.questions = translations[currentLanguage].quiz_questions; this.displayQuestion(); }
             stop() { this.container.innerHTML = ''; }
             displayQuestion() {
                 this.container.innerHTML = ''; if (this.currentQuestionIndex >= this.questions.length) { this.endQuiz(); return; } const q = this.questions[this.currentQuestionIndex];
@@ -229,31 +294,25 @@
                 if (selectedIndex === correctIndex) { this.score++; btnElement.style.backgroundColor = '#10B981'; } else { btnElement.style.backgroundColor = '#EF4444'; }
                 this.currentQuestionIndex++; setTimeout(() => this.displayQuestion(), 1200);
             }
-            endQuiz() { this.container.innerHTML = `<div class="text-center w-full flex flex-col items-center justify-center h-full"><h3 class="text-3xl orbitron">Quiz Finalizado!</h3><p class="text-xl mt-4">Sua pontuação final foi: ${this.score} de ${this.questions.length}</p></div>`; }
+            endQuiz() { this.container.innerHTML = `<div class="text-center w-full flex flex-col items-center justify-center h-full"><h3 class="text-3xl orbitron">${translations[currentLanguage].quiz_finished}</h3><p class="text-xl mt-4">${translations[currentLanguage].quiz_final_score} ${this.score} / ${this.questions.length}</p></div>`; }
         }
 
-        // --- GAME 3: Galaxy Memory (MODIFICADO) ---
         class GalaxyMemory {
             constructor(container) {
-                this.container = container; 
-                // ALTERAÇÃO: Ajustado para 4 pares (8 cartas)
-                this.emojis = ['🛰️', '🚀', '👽', '🌍']; 
-                this.cards = [...this.emojis, ...this.emojis];
+                this.container = container; this.emojis = ['🛰️', '🚀', '👽', '🌍']; this.cards = [...this.emojis, ...this.emojis];
                 this.flippedCards = []; this.matchedPairs = 0; this.lockBoard = false;
             }
             start() { this.shuffle(this.cards); this.createBoard(); }
             stop() { this.container.innerHTML = ''; }
             shuffle(array) { array.sort(() => Math.random() - 0.5); }
             createBoard() {
-                this.container.innerHTML = ''; const grid = document.createElement('div'); 
-                grid.className = 'memory-grid w-full h-full p-2 sm:p-4 max-w-xs mx-auto';
+                this.container.innerHTML = ''; const grid = document.createElement('div'); grid.className = 'memory-grid w-full h-full p-2 sm:p-4 max-w-xs mx-auto';
                 this.cards.forEach((emoji) => {
                     const card = document.createElement('div'); card.className = 'memory-card'; card.dataset.emoji = emoji;
                     card.addEventListener('click', () => this.flipCard(card));
                     card.innerHTML = `<div class="card-face card-front">?</div><div class="card-face card-back">${emoji}</div>`;
                     grid.appendChild(card);
-                });
-                this.container.appendChild(grid);
+                }); this.container.appendChild(grid);
             }
             flipCard(card) {
                 if (this.lockBoard || card.classList.contains('is-flipped') || this.flippedCards.includes(card)) return;
@@ -269,7 +328,7 @@
                 }
                 if (this.matchedPairs === this.emojis.length) { setTimeout(() => this.endGame(), 500); }
             }
-            endGame() { this.container.innerHTML = `<div class="text-center w-full flex flex-col items-center justify-center h-full"><h3 class="text-3xl orbitron">Parabéns!</h3><p class="text-xl mt-4">Você encontrou todos os pares!</p></div>`; }
+            endGame() { this.container.innerHTML = `<div class="text-center w-full flex flex-col items-center justify-center h-full"><h3 class="text-3xl orbitron">${translations[currentLanguage].congrats}</h3><p class="text-xl mt-4">${translations[currentLanguage].all_pairs_found}</p></div>`; }
         }
     </script>
 
